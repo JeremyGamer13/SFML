@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Spoonfeed Markup Language</title>
+        <style>
+            .codeArea {
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                width: 50%;
+                height: 90%;
+                resize: none;
+                z-index: 5;
+            }
+            .convertButton {
+                width: 100%;
+                height: 10%;
+                position: absolute;
+                left: 0px;
+                bottom: 0px;
+                z-index: 25;
+            }
+            .htmlCode {
+                position: absolute;
+                right: 0px;
+                top: 0px;
+                height: 90%;
+                width: 25%;
+                resize: none;
+                z-index: 6;
+            }
+            .previewFrame {
+                position: absolute;
+                left: 50%;
+                top: 0px;
+                width: 25%;
+                height: 90%;
+                border-width: 0px;
+                outline-width: 0px;
+                margin: 0px;
+                padding: 0px;
+                z-index: 2;
+            }
+        </style>
+    </head>
+    <body>
+        <textarea class="codeArea" id="code_area" placeholder="&lt;document isa=&quot;sfv1&quot;>&NewLine;&NewLine;&lt;/document>">&lt;document isa=&quot;sfv1&quot;>&NewLine;&NewLine;&lt;/document></textarea>
+        <textarea class="htmlCode" id="html_code_area" placeholder="HTML code is exported here"></textarea>
+        <iframe class="previewFrame" id="preview_frame" src="https://example.com"></iframe>
+        <button class="convertButton" id="convert_button">Convert</button>
+        <script src="converter.js"></script>
+        <script>
+            const button = document.getElementById("convert_button")
+            const codeArea = document.getElementById("code_area")
+            const htmlCodeArea = document.getElementById("html_code_area")
+            const previewFrame = document.getElementById("preview_frame")
+            button.onclick = () => {
+                const code = window.convert(codeArea.value)
+                htmlCodeArea.value = code
+                previewFrame.src = URL.createObjectURL(new Blob([code], { type: "text/html" }))
+            }
+        </script>
+    </body>
+</html>
